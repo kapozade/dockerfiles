@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mongo1:
+    hostname: mongo1
+    container_name: localmongo1
+    image: mongo
+    environment:
+      MONGO_REPLICA_SET_NAME: dbrs
+    volumes:
+      - ./docker/.data/mongo1:/data/db
+      - ./initialize-replicaset.sh:/scripts/initialize-replicaset.sh
+    networks:
+      - mongors-network
+    expose:
+      - 27017
+    ports:
+      - 27011:27017
+      - 27017:27017
+    restart: always
+    command: "--bind_ip_all --replSet dbrs"
+
+  mongo2:
+    hostname: mongo2
+    container_name: localmongo2
+    image: mongo
+    environment:
+      MONGO_REPLICA_SET_NAME: dbrs
+    volumes:
+      - ./docker/.data/mongo2:/data/db
+    networks:
+      - mongors-network
+    expose:
+      - 27017
+    ports:
+      - 27012:27017
+    restart: always
+    command: "--bind_ip_all --replSet dbrs"
+
+  mongo3:
+    hostname: mongo3
+    container_name: localmongo3
+    image: mongo
+    environment:
+      MONGO_REPLICA_SET_NAME: dbrs
+    volumes:
+      - ./docker/.data/mongo3:/data/db
+    expose:
+      - 27017
+    networks:
+      - mongors-network
+    ports:
+      - 27013:27017
+    restart: always
+    command: "--bind_ip_all --replSet dbrs"
+
+networks:
+  mongors-network:
+    driver: bridge
