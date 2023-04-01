@@ -5,3 +5,4 @@ This repository contains docker compose yml files and scripts for resources like
 * MSSQL - Azure SQL Edge.
 * MySQL
 * RabbitMQ - with delayed message exchange plugin.
+* Redis
