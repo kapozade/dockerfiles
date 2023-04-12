@@ -9,7 +9,6 @@ services:
       MONGO_REPLICA_SET_NAME: dbrs
     volumes:
       - ./docker/.data/mongo1:/data/db
-      - ./initialize-replicaset.sh:/scripts/initialize-replicaset.sh
     networks:
       - mongors-network
     expose:
@@ -17,7 +16,7 @@ services:
     ports:
       - 27011:27017
       - 27017:27017
-    restart: always
+    restart: "on-failure"
     command: "--bind_ip_all --replSet dbrs"
 
   mongo2:
@@ -34,7 +33,7 @@ services:
       - 27017
     ports:
       - 27012:27017
-    restart: always
+    restart: "on-failure"
     command: "--bind_ip_all --replSet dbrs"
 
   mongo3:
@@ -51,8 +50,21 @@ services:
       - mongors-network
     ports:
       - 27013:27017
-    restart: always
+    restart: "on-failure"
     command: "--bind_ip_all --replSet dbrs"
+
+  cluster-setup:
+    image: mongo
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+    volumes:
+      - .:/scripts
+    restart: "no"
+    networks:
+      - mongors-network
+    entrypoint: ["bash", "/scripts/configure-cluster.sh"]
 
 networks:
   mongors-network:
