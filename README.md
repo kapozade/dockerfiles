@@ -2,6 +2,7 @@
 
 This repository contains docker compose yml files and scripts for resources like databases and message brokers. Currently it includes below resources.
 * Jaeger
+* k6 - with Grafana
 * MongoDB - replicaset.
 * MSSQL - Azure SQL Edge.
 * MySQL
