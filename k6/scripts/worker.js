@@ -1,15 +1,30 @@
-import http from 'k6/http';
-import { check, sleep } from 'k6';
+import http from "k6/http";
+import { sleep, check } from "k6";
 
 export const options = {
-  stages: [
-    { duration: '20s', target: 5 },
-    { duration: '10s', target: 0 },
-  ],
+  scenarios: {
+    stress: {
+      executor: "ramping-arrival-rate",
+      timeUnit: "1s",
+      preAllocatedVUs: 500,
+      stages: [
+        { duration: "2m", target: 10 },
+        { duration: "5m", target: 10 }
+      ],
+    },
+  },
 };
 
 export default function () {
-  const res = http.get('http://host.docker.internal:5000/health');
-  check(res, { 'status was 200': (r) => r.status == 200 });
-  sleep(1);
+  const BASE_URL = "http://host.docker.internal:5000";
+  let responses = http.batch([
+    ['GET', BASE_URL + '/api/v1/foo/10'],
+    ['GET', BASE_URL + '/api/v1/foo/21'],
+    ['GET', BASE_URL + '/api/v1/foo/32'],
+    ['GET', BASE_URL + '/api/v1/foo/43']
+  ]);
+  
+  check(responses[0], {
+    'is status 404': (r) => r.status === 404,
+  });
 }
