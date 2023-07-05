@@ -6,5 +6,6 @@ This repository contains docker compose yml files and scripts for resources like
 * [MongoDB](https://github.com/kapozade/dockerfiles/tree/main/mongodb) - replicaset.
 * [MSSQL](https://github.com/kapozade/dockerfiles/tree/main/mssql) - Azure SQL Edge.
 * [MySQL](https://github.com/kapozade/dockerfiles/tree/main/mysql)
+* [PostgreSQL](https://github.com/kapozade/dockerfiles/tree/main/postgresql)
 * [RabbitMQ](https://github.com/kapozade/dockerfiles/tree/main/rabbitmq) - with delayed message exchange plugin.
 * [Redis](https://github.com/kapozade/dockerfiles/tree/main/redis) - with user name and password
