@@ -1,3 +1,4 @@
 docker
 data
 influxdb
+.DS_Store
