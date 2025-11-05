@@ -1,6 +1,7 @@
 # dockerfiles
 
 This repository contains docker compose yml files and scripts for resources like databases and message brokers. Currently it includes below resources.
+* [Azure SQL Edge](https://github.com/kapozade/dockerfiles/tree/main/azure-sql-edge)
 * [Jaeger](https://github.com/kapozade/dockerfiles/tree/main/jaeger)
 * [k6](https://github.com/kapozade/dockerfiles/tree/main/k6) - with Grafana
 * [MongoDB](https://github.com/kapozade/dockerfiles/tree/main/mongodb) - replicaset.
