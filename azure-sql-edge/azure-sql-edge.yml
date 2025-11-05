@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  sql-edge:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: sql-edge
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "YourStrong!Passw0rd"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      # Veritabanı dosyalarının kalıcı olması için
+      - ./data:/var/opt/mssql
+      # Eğer başlangıçta SQL script'leri çalıştırmak istersen:
+      # - ./init:/docker-entrypoint-initdb.d
+    # restart: unless-stopped
+    platform: linux/arm64
